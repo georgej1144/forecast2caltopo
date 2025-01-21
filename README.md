@@ -1,12 +1,12 @@
-# Avalanche Forecast CLI Wrapper
+# Forecast2Caltopo
 
-This project provides a command-line interface (CLI) for interacting with Avalanche Forecast API utilities. The CLI allows users to fetch avalanche forecasts for a specific geographic point and date and outputs the results as a GeoJSON file.
+<!-- This project provides a command-line interface (CLI) for interacting with Avalanche Forecast API utilities. The CLI allows users to fetch avalanche forecasts for a specific geographic point and date and outputs the results as a GeoJSON file. -->
 
-## Features
+<!-- ## Features
 
 - Fetch avalanche forecasts for a specific point (latitude and longitude).
 - Specify a date for the forecast (defaults to today if not provided).
-- Save results as a GeoJSON file for further use or visualization.
+- Save results as a GeoJSON file for further use or visualization. -->
 
 ## Prerequisites
 
@@ -29,7 +29,7 @@ The CLI accepts the following arguments:
 | `--latitude`     | Yes      | Latitude of the point of interest.                                      |
 | `--longitude`    | Yes      | Longitude of the point of interest.                                     |
 | `--date`         | No       | Date for the forecast in `YYYY-MM-DD` format. Defaults to today.        |
-| `--output`       | No       | Output file to save the GeoJSON result. Defaults to `output.json`.      |
+| `--output`       | No       | Output file to save the GeoJSON result. Defaults to `ava_DEM_{forecast date}.json`.      |
 
 ### Example Usage
 

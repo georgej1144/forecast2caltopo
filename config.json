@@ -1,0 +1,40 @@
+{
+    "colors": {
+        "yellow": "FFFF00",
+        "orange": "FF8000",
+        "red": "FF0000",
+        "black": "000000"
+    },
+    "color_mapping": [
+        ["yellow","black","black","black"],
+        ["yellow","black","black","black"],
+        ["yellow","black","black","black"],
+        ["yellow","red","black","black"],
+        ["yellow","orange","black","black"]
+    ],
+    "slide_slopes": [25,90],
+    "elevations": {
+        "alp": [11500,99999],
+        "tln": [10500,11500],
+        "btl": [0,10500]
+    },
+    "unit":"f",
+    "regions": {
+        "n": [338,23],
+        "ne": [23,68],
+        "e": [68,113],
+        "se": [113,158],
+        "s": [158,203],
+        "sw": [203,248],
+        "w": [248,293],
+        "nw": [293,338]
+    },
+    "likelihood_mapping":{
+        "unlikely":     0,
+        "possible":     1,
+        "likely":       2,
+        "verylikely":   3,
+        "certain":      4
+    },
+    "round_destructive_up": true
+}

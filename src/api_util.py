@@ -11,6 +11,8 @@ from . import models
 from . import LOGGER
 from . import __version__
 
+# https://avalanche.state.co.us/api-proxy/avid?_api_proxy_uri=/products/all/area?productType=avalancheforecast
+# https://avalanche.state.co.us/api-proxy/avid?_api_proxy_uri=/products/all?productType=avalancheforecast
 
 class avy_forecast_getter():
 

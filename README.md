@@ -49,9 +49,68 @@ Fetch the forecast for a specific date and save the result to a custom file:
 python run.py --latitude 39.69507 --longitude -105.902 --date 2025-01-11 --output forecast.json
 ```
 
+## Configuration File
+
+The `config.json` file provides customizable settings for the CLI and its utilities. Below is an explanation of the configuration options:
+
+    - **`colors`**: Defines the hexadecimal color codes for different avalanche risk levels.
+    - **`color_mapping`**: Specifies the mapping of risk levels to colors for different scenarios.
+    - **`slide_slopes`**: Defines the range of slopes (in degrees) considered prone to avalanches.
+    - **`elevations`**: Categorizes elevation levels into alpine (`alp`), treeline (`tln`), and below treeline (`btl`).
+    - **`unit`**: The unit system used for measurements (`f` for Fahrenheit, `c` for Celsius).
+    - **`regions`**: Forecast Rose's  directions (e.g., north, southeast) to their respective angular ranges.
+    - **`likelihood_mapping`**: Assigns numerical values to likelihood descriptors from forecasts.
+    - **`round_destructive_up`**: A boolean value indicating whether to round destructive potential values up.
+
+<!--
+```json
+{
+    "colors": {
+        "yellow": "FFFF00",
+        "orange": "FF8000",
+        "red": "FF0000",
+        "black": "000000"
+    },
+    "color_mapping": [
+        ["yellow", "black", "black", "black"],
+        ["yellow", "black", "black", "black"],
+        ["yellow", "black", "black", "black"],
+        ["yellow", "red", "black", "black"],
+        ["yellow", "orange", "black", "black"]
+    ],
+    "slide_slopes": [25, 90],
+    "elevations": {
+        "alp": [11500, 99999],
+        "tln": [10500, 11500],
+        "btl": [0, 10500]
+    },
+    "unit": "f",
+    "regions": {
+        "n": [338, 23],
+        "ne": [23, 68],
+        "e": [68, 113],
+        "se": [113, 158],
+        "s": [158, 203],
+        "sw": [203, 248],
+        "w": [248, 293],
+        "nw": [293, 338]
+    },
+    "likelihood_mapping": {
+        "unlikely": 0,
+        "possible": 1,
+        "likely": 2,
+        "verylikely": 3,
+        "certain": 4
+    },
+    "round_destructive_up": true
+}
+```
+-->
+
 ## Output
 
 The CLI generates a GeoJSON file containing the avalanche forecast information. The file can be used for visualization or integration with GIS tools like Caltopo.
+
 <!-- 
 ## Error Handling
 

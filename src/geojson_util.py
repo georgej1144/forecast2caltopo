@@ -75,7 +75,7 @@ def split_by_elevation(aspectElevations:list[str]):
     return ret
 
 def format_as_rule(aspect_range, elevation_range, color):
-    return f"s{"-".join([str(e) for e in _CONFIG_.slide_slopes])}" + f"a{"-".join([str(e) for e in aspect_range])}" + f"e{"-".join([str(e) for e in elevation_range])}{_CONFIG_.unit}" + f"c{color}"
+    return f"s{'-'.join([str(e) for e in _CONFIG_.slide_slopes])}" + f"a{'-'.join([str(e) for e in aspect_range])}" + f"e{'-'.join([str(e) for e in elevation_range])}{_CONFIG_.unit}" + f"c{color}"
 
 def danger_to_rule(danger:models.AvalancheProblem, date:datetime.datetime):
     aspects = split_by_elevation(danger.aspectElevations)

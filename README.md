@@ -10,7 +10,7 @@
 
 ## Prerequisites
 
-- Python 3.11 or later
+- Python 3.10 or later
 - Required dependencies (install via `pip`):
 
 ```bash
@@ -26,8 +26,8 @@ The CLI accepts the following arguments:
 
 | Argument         | Required | Description                                                             |
 |------------------|----------|-------------------------------------------------------------------------|
-| `--latitude`     | Yes      | Latitude of the point of interest.                                      |
-| `--longitude`    | Yes      | Longitude of the point of interest.                                     |
+| `--lat` or `--latitude`     | Yes      | Latitude of the point of interest.                                      |
+| `--lon` or `--longitude`    | Yes      | Longitude of the point of interest.                                     |
 | `--date`         | No       | Date for the forecast in `YYYY-MM-DD` format. Defaults to today.        |
 | `--output`       | No       | Output file to save the GeoJSON result. Defaults to `ava_DEM_{forecast date}.json`.      |
 
@@ -38,7 +38,7 @@ The CLI accepts the following arguments:
 Fetch the avalanche forecast for a point and save the result to the default output file:
 
 ```bash
-python run.py --latitude 39.69507 --longitude -105.902
+python3 run.py --lat 39.69507 --long -105.902
 ```
 
 #### Specify a Date and Output File
@@ -46,21 +46,21 @@ python run.py --latitude 39.69507 --longitude -105.902
 Fetch the forecast for a specific date and save the result to a custom file:
 
 ```bash
-python run.py --latitude 39.69507 --longitude -105.902 --date 2025-01-11 --output forecast.json
+python3 run.py --latitude 39.69507 --longitude -105.902 --date 2025-01-11 --output forecast.json
 ```
 
 ## Configuration File
 
 The `config.json` file provides customizable settings for the CLI and its utilities. Below is an explanation of the configuration options:
 
-    - **`colors`**: Defines the hexadecimal color codes for different avalanche risk levels.
-    - **`color_mapping`**: Specifies the mapping of risk levels to colors for different scenarios.
-    - **`slide_slopes`**: Defines the range of slopes (in degrees) considered prone to avalanches.
-    - **`elevations`**: Categorizes elevation levels into alpine (`alp`), treeline (`tln`), and below treeline (`btl`).
-    - **`unit`**: The unit system used for measurements (`f` for Fahrenheit, `c` for Celsius).
-    - **`regions`**: Forecast Rose's  directions (e.g., north, southeast) to their respective angular ranges.
-    - **`likelihood_mapping`**: Assigns numerical values to likelihood descriptors from forecasts.
-    - **`round_destructive_up`**: A boolean value indicating whether to round destructive potential values up.
+    - colors: Defines the hexadecimal color codes for different avalanche risk levels.
+    - color_mapping: Specifies the mapping of risk levels to colors for different scenarios.
+    - slide_slopes: Defines the range of slopes (in degrees) considered prone to avalanches.
+    - elevations: Categorizes elevation levels into alpine (alp), treeline (tln), and below treeline (btl).
+    - unit: The unit system used for measurements (f for Fahrenheit, c for Celsius).
+    - regions: Forecast Rose's  directions (e.g., north, southeast) to their respective angular ranges.
+    - likelihood_mapping: Assigns numerical values to likelihood descriptors from forecasts.
+    - round_destructive_up: A boolean value indicating whether to round destructive potential values up.
 
 <!--
 ```json
@@ -139,3 +139,11 @@ This project is licensed under the MIT License. See `LICENSE` for more details.
 ---
 
 Feel free to contribute by submitting issues or pull requests! -->
+
+
+<!-- layer for each quadrant
+color config for quardant
+
+layers for treeline splits
+treeline split elevation band width config
+treeline split color config -->

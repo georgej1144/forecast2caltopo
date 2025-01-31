@@ -11,11 +11,11 @@
         "treeline_bands": true
     },
     "color_mapping": [
-        ["yellow","black","black","black"],
-        ["yellow","black","black","black"],
-        ["yellow","black","black","black"],
+        ["yellow","orange","black","black"],
         ["yellow","red","black","black"],
-        ["yellow","orange","black","black"]
+        ["yellow","black","black","black"],
+        ["yellow","black","black","black"],
+        ["yellow","black","black","black"]
     ],
     "slide_slopes": [25,90],
     "treeline_transitions": [10500,11500],

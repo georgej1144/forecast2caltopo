@@ -3,7 +3,12 @@
         "yellow": "FFFF00",
         "orange": "FF8000",
         "red": "FF0000",
-        "black": "000000"
+        "black": "A000FF"
+    },
+    "aspect_shading_color": "FF00A0",
+    "include_helpers": {
+        "aspect_layers": true,
+        "treeline_bands": true
     },
     "color_mapping": [
         ["yellow","black","black","black"],
@@ -13,11 +18,9 @@
         ["yellow","orange","black","black"]
     ],
     "slide_slopes": [25,90],
-    "elevations": {
-        "alp": [11500,99999],
-        "tln": [10500,11500],
-        "btl": [0,10500]
-    },
+    "treeline_transitions": [10500,11500],
+    "treeline_bands_width": 10,
+    "treeline_bands_color": "00FF00",
     "unit":"f",
     "regions": {
         "n": [338,23],

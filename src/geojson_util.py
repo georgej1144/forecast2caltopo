@@ -4,7 +4,37 @@ from . import models
 import datetime
 from math import ceil
 
-def create_geojson(rules):
+def rule_tool(mode:str, range:list[int,int]):
+    return mode + '-'.join([str(n) for n in range])
+
+def get_aspect_helpers() -> list[dict]:
+    ret = []
+    for zone in _CONFIG_.regions.keys():
+        ret.append({
+            "title": zone.upper(),
+            "rule": "sc_" + rule_tool("a",_CONFIG_.regions[zone]) + "c" + _CONFIG_.aspect_shading_color + "p"
+        })
+    return ret
+
+def get_treeline_helpers() -> list[dict]:
+    ret = []
+    for elev in _CONFIG_.treeline_transitions:
+        ret.append({
+            "title": f" Elevation Band {elev}",
+            "rule": "sc_" + rule_tool("e", [elev-_CONFIG_.treeline_bands_width, elev+_CONFIG_.treeline_bands_width]) + _CONFIG_.unit + "c" + _CONFIG_.treeline_bands_color + "p"
+        })
+    return ret
+
+def get_helper_layers() -> list[dict]:
+    helpers = []
+    if _CONFIG_.include_helpers.aspect_layers:
+        helpers += get_aspect_helpers()
+    if _CONFIG_.include_helpers.treeline_bands:
+        helpers += get_treeline_helpers()
+    return helpers
+
+def create_geojson(rules:list[dict]):
+    rules = rules + get_helper_layers()
     return {
         "features": [
             {
@@ -74,12 +104,23 @@ def split_by_elevation(aspectElevations:list[str]):
         ret[div[1]].append(div[0])
     return ret
 
+def treeline_to_elevations(treeline: tuple[int,int]) -> list[list[int,int]]:
+    return {
+        "alp": [treeline[1],99999],
+        "tln": treeline,
+        "btl": [0,treeline[0]]
+    }
+
 def format_as_rule(aspect_range, elevation_range, color):
-    return f"s{'-'.join([str(e) for e in _CONFIG_.slide_slopes])}" + f"a{'-'.join([str(e) for e in aspect_range])}" + f"e{'-'.join([str(e) for e in elevation_range])}{_CONFIG_.unit}" + f"c{color}"
+    return  rule_tool("s",_CONFIG_.slide_slopes) + \
+            rule_tool("a", aspect_range) + \
+            rule_tool("e", elevation_range) + \
+            _CONFIG_.unit + "c" + color + "p"
 
 def danger_to_rule(danger:models.AvalancheProblem, date:datetime.datetime):
     aspects = split_by_elevation(danger.aspectElevations)
     color = danger_to_color(_CONFIG_.likelihood_mapping[danger.likelihood], float(danger.expectedSize.max))
+    elevations = treeline_to_elevations(_CONFIG_.treeline_transitions)
     rule = {
         "title": "",
         "rule": "sc_"
@@ -89,8 +130,8 @@ def danger_to_rule(danger:models.AvalancheProblem, date:datetime.datetime):
         aspects[key] = sort_trim_aspects(aspects[key])
         if aspects[key]:
             # dont add rule if doesnt exist for elev
-            rule["title"] = f"{danger.type} {date.isoformat()}"
-            rule["rule"] += format_as_rule(aspects[key], _CONFIG_.elevations[key], color)
+            rule["title"] = f" {danger.type} {date.isoformat()}"
+            rule["rule"] += format_as_rule(aspects[key], elevations[key], color)
             rule["rule"] += "p"
     return rule
 

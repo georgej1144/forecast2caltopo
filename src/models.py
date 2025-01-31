@@ -152,11 +152,20 @@ class AvalancheForecast(pydantic.BaseModel):
     dangerRatings: DangerRatings
     media: ForecastMedia
 
+class HelperOptions(pydantic.BaseModel):
+    aspect_layers: bool
+    treeline_bands: bool
+
 class ConfigObject(pydantic.BaseModel):
     colors: dict[str,str]
+    aspect_shading_color: str
+    include_helpers: HelperOptions
     color_mapping: list[list[str]]
     slide_slopes: tuple[int,int]
-    elevations: dict[str,tuple[int,int]]
+    treeline_transitions: tuple[int,int]
+    treeline_bands_width: int
+    treeline_bands_color: str
+    # elevations: dict[str,tuple[int,int]]
     unit: str
     regions: dict[str,tuple[int,int]]
     likelihood_mapping: dict[str,int]

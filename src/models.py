@@ -160,6 +160,7 @@ class HelperOptions(pydantic.BaseModel):
 class ConfigObject(pydantic.BaseModel):
     colors: dict[str,str]
     aspect_shading_color: str
+    treecover_shading_colors: list[str,str,str]
     include_helpers: HelperOptions
     color_mapping: list[list[str]]
     slide_slopes: tuple[int,int]

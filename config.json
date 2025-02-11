@@ -6,6 +6,11 @@
         "black": "A000FF"
     },
     "aspect_shading_color": "FF00A0",
+    "treecover_shading_colors": [
+        "FF0000",
+        "0000FF",
+        "00FF00"
+    ],
     "include_helpers": {
         "aspect_layers": true,
         "treeline_bands_legacy": false,

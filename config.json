@@ -8,7 +8,8 @@
     "aspect_shading_color": "FF00A0",
     "include_helpers": {
         "aspect_layers": true,
-        "treeline_bands": true
+        "treeline_bands_legacy": false,
+        "treecover_shading": true
     },
     "color_mapping": [
         ["yellow","orange","black","black"],
@@ -17,7 +18,13 @@
         ["yellow","black","black","black"],
         ["yellow","black","black","black"]
     ],
-    "slide_slopes": [25,90],
+    "slide_slopes": [30,50],
+    "treecover_thresholds": {
+        "alp": [0,1],
+        "tln": [1,25],
+        "btl": [25,80]
+    },
+    "legacy_treeline": false,
     "treeline_transitions": [10500,11500],
     "treeline_bands_width": 10,
     "treeline_bands_color": "00FF00",

@@ -4,6 +4,11 @@ from . import models
 import datetime
 from math import ceil
 
+
+# new treecover option:
+# 80% tree cover is safe assumed max treecover%
+
+
 def rule_tool(mode:str, range:list[int,int]):
     return mode + '-'.join([str(n) for n in range])
 
@@ -16,7 +21,16 @@ def get_aspect_helpers() -> list[dict]:
         })
     return ret
 
-def get_treeline_helpers() -> list[dict]:
+def get_treecover_helpers():
+    ret = []
+    for zone in _CONFIG_.treecover_thresholds.keys():        
+        ret.append({
+            "title": f".{zone.upper()}",
+            "rule": "sc_" + rule_tool("t", _CONFIG_.treecover_thresholds[zone])
+        })
+    return ret
+
+def get_treeline_helpers_legacy() -> list[dict]:
     ret = []
     for elev in _CONFIG_.treeline_transitions:
         ret.append({
@@ -29,8 +43,10 @@ def get_helper_layers() -> list[dict]:
     helpers = []
     if _CONFIG_.include_helpers.aspect_layers:
         helpers += get_aspect_helpers()
-    if _CONFIG_.include_helpers.treeline_bands:
-        helpers += get_treeline_helpers()
+    if _CONFIG_.include_helpers.treeline_bands_legacy:
+        helpers += get_treeline_helpers_legacy()
+    if _CONFIG_.include_helpers.treecover_shading:
+        helpers += get_treecover_helpers()
     return helpers
 
 def create_geojson(rules:list[dict]):
@@ -104,12 +120,12 @@ def split_by_elevation(aspectElevations:list[str]):
         ret[div[1]].append(div[0])
     return ret
 
-def treeline_to_elevations(treeline: tuple[int,int]) -> list[list[int,int]]:
-    return {
-        "alp": [treeline[1],99999],
-        "tln": treeline,
-        "btl": [0,treeline[0]]
-    }
+# def treeline_to_elevations(treeline: tuple[int,int]) -> list[list[int,int]]:
+#     return {
+#         "alp": [treeline[1],99999],
+#         "tln": treeline,
+#         "btl": [0,treeline[0]]
+#     }
 
 def format_as_rule(aspect_range, elevation_range, color):
     return  rule_tool("s",_CONFIG_.slide_slopes) + \
@@ -120,7 +136,8 @@ def format_as_rule(aspect_range, elevation_range, color):
 def danger_to_rule(danger:models.AvalancheProblem, date:datetime.datetime):
     aspects = split_by_elevation(danger.aspectElevations)
     color = danger_to_color(_CONFIG_.likelihood_mapping[danger.likelihood], float(danger.expectedSize.max))
-    elevations = treeline_to_elevations(_CONFIG_.treeline_transitions)
+    # elevations = treeline_to_elevations(_CONFIG_.treeline_transitions)
+    treecovers = _CONFIG_.treecover_thresholds
     rule = {
         "title": "",
         "rule": "sc_"
@@ -131,7 +148,8 @@ def danger_to_rule(danger:models.AvalancheProblem, date:datetime.datetime):
         if aspects[key]:
             # dont add rule if doesnt exist for elev
             rule["title"] = f" {danger.type} {date.isoformat()}"
-            rule["rule"] += format_as_rule(aspects[key], elevations[key], color)
+            rule["rule"] += format_as_rule(aspects[key], treecovers[key], color)
+            # rule["rule"] += format_as_rule(aspects[key], elevations[key], color)
             rule["rule"] += "p"
     return rule
 

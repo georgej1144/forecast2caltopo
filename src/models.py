@@ -154,7 +154,8 @@ class AvalancheForecast(pydantic.BaseModel):
 
 class HelperOptions(pydantic.BaseModel):
     aspect_layers: bool
-    treeline_bands: bool
+    treeline_bands_legacy: bool
+    treecover_shading: bool
 
 class ConfigObject(pydantic.BaseModel):
     colors: dict[str,str]
@@ -162,10 +163,11 @@ class ConfigObject(pydantic.BaseModel):
     include_helpers: HelperOptions
     color_mapping: list[list[str]]
     slide_slopes: tuple[int,int]
+    treecover_thresholds: dict[str,tuple[int,int]]
+    legacy_treeline: bool
     treeline_transitions: tuple[int,int]
     treeline_bands_width: int
     treeline_bands_color: str
-    # elevations: dict[str,tuple[int,int]]
     unit: str
     regions: dict[str,tuple[int,int]]
     likelihood_mapping: dict[str,int]
